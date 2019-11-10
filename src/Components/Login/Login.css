@@ -1,0 +1,29 @@
+.title {
+	font-size: 14px;
+}
+
+.pos {
+	margin-bottom: 12px;
+}
+
+.bg-paper {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-size: cover;
+	background-image: url('./Assets/login.png');
+}
+
+.textField {
+	padding-right: 100px;
+}
+
+.logo {
+	position: absolute;
+	margin: auto;
+	left: 210px;
+}
+
+.error-message {
+	color: red;
+}

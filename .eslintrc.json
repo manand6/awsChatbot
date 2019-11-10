@@ -1,0 +1,32 @@
+{
+	"parser": "babel-eslint",
+	"extends": ["airbnb", "prettier"],
+	"plugins": ["react", "jsx-a11y", "import"],
+	"env": {
+		"browser": true,
+		"node": true
+	},
+	"rules": {
+		"comma-dangle": ["error", "never"],
+		"linebreak-style": 0,
+		"strict": 0,
+		"implicit-arrow-linebreak": 0,
+		"no-prototype-builtins": 0,
+		"react/jsx-filename-extension": [
+			1,
+			{
+				"extensions": [".js", ".jsx"]
+			}
+		],
+		"arrow-parens": ["error", "as-needed"],
+		"react/jsx-first-prop-new-line": [1, "multiline"],
+		"react/prefer-stateless-function": ["off"],
+		"no-plusplus": "off",
+		"object-shorthand": ["error", "always"],
+		"react/forbid-prop-types": 0,
+		"react/jsx-indent": ["error", 0],
+		"react/jsx-indent-props": "off",
+		"react/jsx-one-expression-per-line": "off",
+		"import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*.test.js"] }]
+	}
+}
