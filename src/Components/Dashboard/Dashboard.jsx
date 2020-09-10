@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
+import {
+  TextField,
+  Button,
+  Grid,
+  CardContent,
+  Typography,
+  Card,
+} from "@material-ui/core";
 import { ChatBot } from "aws-amplify-react";
 import { Interactions } from "aws-amplify";
 import { ChatFeed, Message } from "react-chat-ui";
@@ -13,20 +16,28 @@ import { ChatFeed, Message } from "react-chat-ui";
 import "./Dashboard.css";
 import ExpansionPanels from "../../Common-utilities/ExpansionDashboard";
 import Logo from "../../Components/Login/Assets/bg.PNG";
+import purple from "../../Components/Dashboard/Assets/purple.png";
+import river from "../../Components/Dashboard/Assets/river.png";
+import green from "../../Components/Dashboard/Assets/green.png";
+import Video from "../../Components/Dashboard/Assets/multi_asset_2.mp4";
+import Buy from "../../Components/Login/Assets/Buy_Sell.webp";
 import Newloan from "../../Common-utilities/LoanCarousel";
+import Divider from "@material-ui/core/Divider";
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import {
   TransactionHistory,
   TransactionVideo,
   AppBar,
   TransactionGraph,
-  Subscription
+  Subscription,
+  Exchange,
 } from "./../index";
 
-const styles = theme => ({
+const styles = (theme) => ({
   Dashboard: {
     flexGrow: 1,
     marginLeft: 20,
-    maxWidth: 1600
+    maxWidth: 1600,
   },
   // card: {
   // 	minWidth: 275,
@@ -34,73 +45,102 @@ const styles = theme => ({
   // 	backgroundImage: 'url(' + logo + ')',
   // },
   card: {
-    width: 300,
+    width: 400,
     height: 170,
     backgroundSize: "cover",
     //backgroundImage: 'url('../../Components/Login/Assets/login.png')',
-    backgroundImage: "url(" + Logo + ")"
+    backgroundImage: "url(" + Logo + ")",
+  },
+  exchange: {
+    width: 1160,
+    height: 350,
+    backgroundSize: "cover",
+    //backgroundImage: 'url('../../Components/Login/Assets/login.png')',
+    backgroundImage: "url(" + river + ")",
+  },
+  wallet: {
+    width: 700,
+    height: 170,
+    backgroundSize: "cover",
+    //backgroundImage: 'url('../../Components/Login/Assets/login.png')',
+    backgroundImage: "url(" + Logo + ")",
   },
   title: {
     display: "none",
     fontSize: 14,
     [theme.breakpoints.up("sm")]: {
-      display: "block"
-    }
+      display: "block",
+    },
   },
   bullet: {
     display: "inline-block",
     margin: "0 2px",
-    transform: "scale(0.8)"
+    transform: "scale(0.8)",
   },
   pos: {
-    marginTop: 15
+    marginTop: 15,
   },
   marginBottom: {
-    marginBottom: 10
+    marginBottom: 10,
   },
   paper: {
     padding: theme.spacing.unit * 2,
-    textAlign: "Left"
+    textAlign: "Left",
   },
   font: {
-    color: "#fff"
+    color: "#fff",
+    fontFamily: "system-ui",
+  },
+  exchangeButton: {
+    //padding: 20,
+    //height: 20,
+    width: 250,
+    marginRight: 10,
+    backgroundColor: "yellow",
   },
   submitButton: {
     //padding: 20,
     //height: 20,
     width: 200,
     marginRight: 10,
-    backgroundColor: "#4caf50"
-  }
+    backgroundColor: "#4caf50",
+  },
+  walletButton: {
+    //padding: 20,
+    //height: 20,
+    width: 250,
+    marginRight: 10,
+    backgroundColor: "yellow",
+  },
 });
 
 const botstyles = {
   bubbleStyles: {
     text: {
-      fontSize: 16
+      fontSize: 16,
     },
     chatbubble: {
       borderRadius: 30,
-      padding: 10
-    }
+      padding: 10,
+    },
   },
   headerTitle: {
     color: "white",
     fontSize: 22,
-    textAlign: "center"
+    textAlign: "center",
   },
   head: {
     backgroundColor: "#4caf50",
     padding: 1,
     marginBottom: -21,
     borderTopLeftRadius: 25,
-    paddingBottom: 0
+    paddingBottom: 0,
     //marginRight: 25
   },
   header: {
     backgroundColor: "rgb(0, 132, 255)",
     padding: 20,
-    borderTop: "12px solid rgb(204, 204, 204)"
+    borderTop: "12px solid rgb(204, 204, 204)",
   },
   messagesContainer: {
     display: "flex",
@@ -109,7 +149,7 @@ const botstyles = {
     alignItems: "center",
     backgroundColor: "whitesmoke",
     height: 450,
-    overflowY: "scroll"
+    overflowY: "scroll",
   },
   input: {
     fontSize: 16,
@@ -117,8 +157,8 @@ const botstyles = {
     outline: "none",
     width: 350,
     border: "none",
-    borderBottom: "2px solid rgb(0, 132, 255)"
-  }
+    borderBottom: "2px solid rgb(0, 132, 255)",
+  },
 };
 
 class Dashboard extends Component {
@@ -136,11 +176,11 @@ class Dashboard extends Component {
         new Message({
           id: 1,
           message:
-            "Hello, how can I help you today?  Select from below #Transaction history - check your previous transactions history  #Remind someone - send message to the person you would like to remind"
+            "Hello, how can I help you today?  Select from below #Transaction history - check your previous transactions history  #Remind someone - send message to the person you would like to remind",
           // Transaction history
           // Remind someone '
-        })
-      ]
+        }),
+      ],
     };
   }
 
@@ -154,7 +194,7 @@ class Dashboard extends Component {
   onChange(e) {
     const input = e.target.value;
     this.setState({
-      input
+      input,
     });
   }
 
@@ -162,10 +202,18 @@ class Dashboard extends Component {
     this.setState({ open: false });
   };
 
+  handleExchange = () => {
+    this.props.history.push({
+      pathname: "/login",
+      state: { accountDetails: null },
+    });
+    console.log("button");
+  };
+
   clearChat = () => {
     const message = new Message({
       id: 0,
-      message: ""
+      message: "",
     });
     let messages = message;
     this.setState({ messages });
@@ -185,17 +233,25 @@ class Dashboard extends Component {
       videoOpen: false,
       open: false,
       graphOpen: false,
-      subscribeOpen: false
+      subscribeOpen: false,
     });
     console.log("button");
   };
 
-  _handleKeyPress = e => {
+  handleAddMoney = () => {
+    this.props.history.push({
+      pathname: "/addMoney",
+      state: { accountDetails: null },
+    });
+    console.log("button");
+  };
+
+  _handleKeyPress = (e) => {
     this.setState({
       open: false,
       videoOpen: false,
       graphOpen: false,
-      subscribeOpen: false
+      subscribeOpen: false,
     });
     if (e.key === "Enter") {
       this.submitMessage();
@@ -207,21 +263,21 @@ class Dashboard extends Component {
     if (input === "") return;
     const message = new Message({
       id: 0,
-      message: input
+      message: input,
     });
     let messages = [...this.state.messages, message];
 
     this.setState({
       messages,
       input: "",
-      open: false
+      open: false,
     });
     console.log("input", input);
     let response = await Interactions.send("PA", input);
     console.log("resp--", JSON.stringify(response));
     let responseMessage = new Message({
       id: 1,
-      message: response.message
+      message: response.message,
     });
 
     if (response.intentName === "transaction") {
@@ -251,12 +307,12 @@ class Dashboard extends Component {
 
     if (response.intentName === "fundTransfer") {
       const {
-        slots: { mobile, successMsg, thankyou }
+        slots: { mobile, successMsg, thankyou },
       } = response;
       if (mobile !== null) {
         fetch("http://localhost:8090/sendsms/" + "+" + mobile)
-          .then(response => response.json())
-          .then(responseobj => {
+          .then((response) => response.json())
+          .then((responseobj) => {
             console.log("sucess55", responseobj);
             if (
               responseobj.Message ===
@@ -288,7 +344,7 @@ class Dashboard extends Component {
 
     if (response.intentName === "transaction") {
       const {
-        slots: { docType, forMonth }
+        slots: { docType, forMonth },
       } = response;
       console.log("docType", docType);
       console.log("forMonth", forMonth);
@@ -323,104 +379,111 @@ class Dashboard extends Component {
                   onClick={this.handleOpen1.bind(this)}
                 >
                   <CardContent>
-                    <Typography
-                      className={classes.font}
-                      variant="h5"
-                      component="h2"
-                    >
-                      My Account 1
-                    </Typography>
+                    <span>
+                      <Typography
+                        className={classes.font}
+                        variant="h6"
+                        component="h2"
+                      >
+                        <AccountBalanceWalletIcon
+                          color={"white"}
+                          fontSize="large"
+                        />
+                        <span
+                          style={{
+                            zIndex: "-1",
+                            float: "right",
+                            paddingRight: "134px",
+                          }}
+                        >
+                          Your Wallet Balance
+                        </span>
+                      </Typography>
+                    </span>
                     <br />
-                    <Typography className={classes.font}>
-                      HDFC
-                      <br />
-                      Account Number :{" "}
-                      {
-                        this.props.location.state.accountDetails.savingAccount
-                          .accountNumber
-                      }
-                    </Typography>
+
                     <Typography
                       className={classes.font}
-                      variant="h5"
-                      component="h5"
+                      variant="h8"
+                      component="h1"
+                      style={{ textAlignLast: "center" }}
                     >
-                      Balance :{" "}
-                      {
-                        this.props.location.state.accountDetails.savingAccount
-                          .accountBalance
-                      }
+                      45000 DiGs
                     </Typography>
                   </CardContent>
                 </Card>
               </Grid>
               <Grid item xs={4}>
-                <Card className={classes.card} onClick={this.handleOpen2}>
+                <Card className={classes.wallet}>
                   <CardContent>
                     <Typography
                       className={classes.font}
-                      variant="h5"
+                      variant="h6"
                       component="h2"
+                      style={{ textAlignLast: "center" }}
                     >
-                      My Account 2
+                      You can Buy DiGs instantly with a bank card or Crypto
+                      currency
                     </Typography>
-                    <br />
-                    <Typography className={classes.font} color="textSecondary">
-                      Standard Chartered
-                      <br />
-                      Account Number :{" "}
-                      {
-                        this.props.location.state.accountDetails.currentAccount
-                          .accountNumber
-                      }
-                    </Typography>
-                    <Typography
-                      className={classes.font}
-                      variant="h5"
-                      component="h5"
+                    <Button
+                      className={classes.walletButton}
+                      variant="contained"
+                      color="white"
+                      style={{ right: "-200px", top: "40px" }}
+                      onClick={this.handleAddMoney}
                     >
-                      Balance :{" "}
-                      {
-                        this.props.location.state.accountDetails.currentAccount
-                          .accountBalance
-                      }
-                    </Typography>
+                      ADD MONEY TO DiG-wallet
+                    </Button>
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item justify="center" alignItems="center" xs={4}>
-                {this.state.askButton ? (
-                  <div>
-                    <header style={botstyles.head}>
-                      <p style={botstyles.headerTitle}>Ask SmartBot</p>
-                    </header>
-                    <div style={botstyles.messagesContainer}>
-                      <ChatFeed
-                        messages={this.state.messages}
-                        hasInputField={false}
-                        bubbleStyles={botstyles.bubbleStyles}
-                      />
-                      <a onClick={this.clearChat}>Clear Chat</a>
-                      <input
-                        onKeyPress={this._handleKeyPress}
-                        onChange={this.onChange.bind(this)}
-                        style={botstyles.input}
-                        value={this.state.input}
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <Button
-                    className={classes.submitButton}
-                    variant="contained"
-                    color="primary"
-                    onClick={this.handleSubmitClick}
-                  >
-                    Ask Smart Bot
-                  </Button>
-                )}
-              </Grid>
             </Grid>
+            <div>
+              <br />
+              <div>
+                <Grid container spacing={8}>
+                  <Grid>
+                    <Card className={classes.exchange}>
+                      <Typography
+                        className={classes.font}
+                        variant="h9"
+                        component="h2"
+                        style={{ textAlignLast: "center", marginTop: 70 }}
+                      >
+                        Exchange to any currency in the world
+                      </Typography>
+
+                      <div
+                        style={{
+                          width: 350,
+                          paddingTop: 80,
+                          paddingLeft: 180,
+                        }}
+                      >
+                        <Exchange />
+                      </div>
+                      <div
+                        style={{ width: 350, paddingLeft: 560, marginTop: -55 }}
+                      >
+                        <Exchange />
+                      </div>
+                      <Button
+                        className={classes.exchangeButton}
+                        variant="contained"
+                        color="white"
+                        style={{ right: "-420px", top: "40px" }}
+                        onClick={this.handleExchange}
+                      >
+                        Exchange your Currency
+                      </Button>
+                    </Card>
+                  </Grid>
+                </Grid>
+              </div>
+              {/* <source srcSet={Buy} type="image/webp" /> */}
+
+              {/* <video src={Video} width="800" height="400" autoplay="true" /> */}
+            </div>
           </div>
 
           {this.state.open ? (
@@ -445,7 +508,7 @@ class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Dashboard);

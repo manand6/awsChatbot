@@ -1,29 +1,31 @@
 .title {
-	font-size: 14px;
+  font-size: 14px;
 }
 
 .pos {
-	margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .bg-paper {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	background-size: cover;
-	background-image: url('./Assets/login.png');
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-size: cover;
+  background-image: url("./Assets/login.png");
 }
 
 .textField {
-	padding-right: 100px;
+  padding-right: 100px;
 }
 
 .logo {
-	position: absolute;
-	margin: auto;
-	left: 210px;
+  position: absolute;
+  margin: auto;
+  left: 190px;
+  top: 40px;
+  width: 370px;
 }
 
 .error-message {
-	color: red;
+  color: red;
 }
