@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 import InputBase from "@material-ui/core/InputBase";
 import Divider from "@material-ui/core/Divider";
 import TextField from "@material-ui/core/TextField";
@@ -47,8 +48,8 @@ const currencies = [
     label: "฿",
   },
   {
-    value: "JPY",
-    label: "¥",
+    value: "RPE",
+    label: "₹",
   },
 ];
 
@@ -56,12 +57,27 @@ export class Exchange extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currency: "EUR",
+      currencySymbol: "EUR",
+      currencySymbol1: "RPE",
+      currency: "",
     };
   }
 
-  handleChange = (event) => {
-    this.setState({ currency: event.target.value });
+  handleCurrencyChange = (event) => {
+    console.log("this.state.currency;", this.state.currency);
+    let value = event.target.value;
+    if (
+      this.state.currencySymbol1 === "RPE" &&
+      this.state.currencySymbol === "EUR"
+    ) {
+      value = value * 87.39;
+    }
+    this.setState({ currency: value });
+  };
+
+  handleCurrencySymbolChange = (event) => {
+    console.log("this.state.currencySymbol;", this.state.currencySymbol);
+    this.setState({ currencySymbol: event.target.value });
   };
 
   handleExchange = () => {
@@ -74,31 +90,63 @@ export class Exchange extends React.Component {
 
   render() {
     const classes = this.props;
-    const { currency } = this.state;
+    const { currency } = this.state.currency;
+    console.log("this.state.currency;", this.state.currency);
     return (
-      <Paper component="form" className={classes.root}>
-        <TextField
-          id="outlined-basic"
-          label="Your currency"
-          variant="outlined"
-        />
-        <span>
-          <TextField
-            style={{ width: 100, paddingLeft: 10 }}
-            id="outlined-select-currency"
-            select
-            value={this.state.currency}
-            onChange={(e) => this.handleChange(e)}
-            variant="outlined"
-          >
-            {currencies.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </span>
-      </Paper>
+      <Grid container spacing={8} style={{ paddingTop: 80 }}>
+        <Grid item container xs={6} style={{ paddingLeft: 170 }}>
+          <Paper component="form" className={classes.root}>
+            <div>
+              <TextField
+                id="outlined-basic"
+                label="Your currency"
+                variant="outlined"
+                onChange={(e) => this.handleCurrencyChange(e)}
+              />
+              <TextField
+                style={{ width: 100, paddingLeft: 10 }}
+                id="outlined-select-currency"
+                select
+                value={this.state.currencySymbol}
+                onChange={(e) => this.handleCurrencySymbolChange(e)}
+                variant="outlined"
+              >
+                {currencies.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+          </Paper>
+        </Grid>
+        <Grid item container xs={6}>
+          <Paper component="form" className={classes.root}>
+            <div>
+              <TextField
+                id="outlined-basic"
+                label="Your currency"
+                variant="outlined"
+                value={this.state.currency}
+              />
+              <TextField
+                style={{ width: 100, paddingLeft: 10 }}
+                id="outlined-select-currency"
+                select
+                value={this.state.currencySymbol1}
+                onChange={(e) => this.handleChange(e)}
+                variant="outlined"
+              >
+                {currencies.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+          </Paper>
+        </Grid>
+      </Grid>
     );
   }
 }

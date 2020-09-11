@@ -18,6 +18,7 @@ import bitcoin from "../../Components/AddMoney/Assets/bitcoin.JPG";
 import paypal from "../../Components/AddMoney/Assets/paypal.JPG";
 import other from "../../Components/AddMoney/Assets/other.JPG";
 import othermethod from "../../Components/AddMoney/Assets/othermethod.PNG";
+import river from "../../Components/Dashboard/Assets/river.png";
 import {
   ExpansionPanel,
   ExpansionPanelDetails,
@@ -43,6 +44,18 @@ const styles = (theme) => ({
   paymentImg: {
     width: 450,
   },
+  addMoneycard: {
+    width: 250,
+    height: 170,
+    backgroundSize: "cover",
+    //backgroundImage: 'url('../../Components/Login/Assets/login.png')',
+    backgroundImage: "url(" + river + ")",
+  },
+  font: {
+    color: "#fff",
+    fontFamily: "system-ui",
+    paddingLeft: 100,
+  },
   submitButton: {
     //padding: 20,
     //height: 20,
@@ -59,6 +72,13 @@ const styles = (theme) => ({
   },
   resetButton: {
     //padding: 20,
+    //height: 20,
+    width: 200,
+    marginRight: 10,
+  },
+  successButton: {
+    top: 30,
+    left: 200,
     //height: 20,
     width: 200,
     marginRight: 10,
@@ -206,129 +226,152 @@ export class ApplyLoanForm extends React.Component {
     return (
       <div className="margin-20px">
         {this.state.responseReceived ? (
-          // <p>
-          //   You have succesfully Applied for the loan. Please check availed
-          //   loans tab for details.{" "}
-          // </p>
-          //<Paper component="form" className={classes.root}>
-          <card className={classes.container}>
-            <img src={purple} />
-          </card>
+          <Grid item container xs={8}>
+            <card className={classes.success}>
+              <CardContent>
+                <Typography
+                  className={classes.font}
+                  variant="h6"
+                  component="h2"
+                >
+                  You have succesfully loaded DiGs to the wallet
+                </Typography>
+                <Button
+                  className={classes.successButton}
+                  variant="contained"
+                  onClick={this.handleResetClick}
+                >
+                  Redirect
+                </Button>
+              </CardContent>
+            </card>
+          </Grid>
         ) : (
           //</Paper>
           <Paper component="form" className={classes.root}>
-            <form className={classes.container} noValidate autoComplete="off">
-              <Grid container spacing={0}>
-                <Grid container justify="center" alignItems="center">
-                  <img src={payment1} />
-                  <ExpansionPanel>
-                    <ExpansionPanelSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="panel1a-content"
-                      id="panel1a-header"
-                    >
-                      <Typography className={classes.heading}>
-                        <img
-                          src={creditheader}
-                          className={classes.paymentImg}
-                        />
-                      </Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      <img src={credit} style={{ height: 380 }} />
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
-                  <ExpansionPanel>
-                    <ExpansionPanelSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="panel2a-content"
-                      id="panel2a-header"
-                    >
-                      <Typography className={classes.heading}>
-                        <img src={paypal} className={classes.paymentImg} />
-                      </Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      <Typography style={{ width: 763 }}>
-                        <Button
-                          //className={classes.submitButton}
-                          variant="contained"
-                          color="action"
-
-                          //onClick={this.handleSubmitClick}
-                        >
-                          Continue to Paypal
-                        </Button>
-                      </Typography>
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
-                  <ExpansionPanel>
-                    <ExpansionPanelSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="panel2a-content"
-                      id="panel2a-header"
-                    >
-                      <Typography className={classes.heading}>
-                        <img src={bitcoin} className={classes.paymentImg} />
-                      </Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      <Typography style={{ width: 763 }}>
-                        <Button
-                          //className={classes.submitButton}
-                          variant="contained"
-                          color="Secondary"
-
-                          //onClick={this.handleSubmitClick}
-                        >
-                          Continue to BitPay
-                        </Button>
-                      </Typography>
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
-                  <ExpansionPanel>
-                    <ExpansionPanelSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="panel2a-content"
-                      id="panel2a-header"
-                    >
-                      <Typography className={classes.heading}>
-                        <img src={other} className={classes.paymentImg} />
-                      </Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      <img src={othermethod} style={{ height: 322 }} />
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
-                </Grid>
-                <br />
-
-                <div style={{ paddingTop: 10 }} />
-                <Grid
-                  container
-                  justify="center"
-                  alignItems="center"
-                  style={{ paddingTop: 25, paddingBottom: 25 }}
-                >
-                  <Button
-                    className={classes.submitButton}
-                    variant="contained"
-                    color="primary"
-                    onClick={this.handleSubmitClick}
-                  >
-                    Submit
-                  </Button>
-
-                  <Button
-                    className={classes.resetButton}
-                    variant="contained"
-                    onClick={this.handleResetClick}
-                  >
-                    Reset
-                  </Button>
-                </Grid>
+            <Grid container spacing={12}>
+              <Grid item container xs={4}>
+                <card className={classes.addMoneycard}>hello</card>
               </Grid>
-            </form>
+              <Grid item container xs={8}>
+                <form
+                  className={classes.container}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <Grid container spacing={0}>
+                    <Grid container justify="center" alignItems="center">
+                      <img src={payment1} />
+                      <ExpansionPanel>
+                        <ExpansionPanelSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel1a-content"
+                          id="panel1a-header"
+                        >
+                          <Typography className={classes.heading}>
+                            <img
+                              src={creditheader}
+                              className={classes.paymentImg}
+                            />
+                          </Typography>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                          <img src={credit} style={{ height: 380 }} />
+                        </ExpansionPanelDetails>
+                      </ExpansionPanel>
+                      <ExpansionPanel>
+                        <ExpansionPanelSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel2a-content"
+                          id="panel2a-header"
+                        >
+                          <Typography className={classes.heading}>
+                            <img src={paypal} className={classes.paymentImg} />
+                          </Typography>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                          <Typography style={{ width: 763 }}>
+                            <Button
+                              //className={classes.submitButton}
+                              variant="contained"
+                              color="action"
+
+                              //onClick={this.handleSubmitClick}
+                            >
+                              Continue to Paypal
+                            </Button>
+                          </Typography>
+                        </ExpansionPanelDetails>
+                      </ExpansionPanel>
+                      <ExpansionPanel>
+                        <ExpansionPanelSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel2a-content"
+                          id="panel2a-header"
+                        >
+                          <Typography className={classes.heading}>
+                            <img src={bitcoin} className={classes.paymentImg} />
+                          </Typography>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                          <Typography style={{ width: 763 }}>
+                            <Button
+                              //className={classes.submitButton}
+                              variant="contained"
+                              color="Secondary"
+
+                              //onClick={this.handleSubmitClick}
+                            >
+                              Continue to BitPay
+                            </Button>
+                          </Typography>
+                        </ExpansionPanelDetails>
+                      </ExpansionPanel>
+                      <ExpansionPanel>
+                        <ExpansionPanelSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel2a-content"
+                          id="panel2a-header"
+                        >
+                          <Typography className={classes.heading}>
+                            <img src={other} className={classes.paymentImg} />
+                          </Typography>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                          <img src={othermethod} style={{ height: 322 }} />
+                        </ExpansionPanelDetails>
+                      </ExpansionPanel>
+                    </Grid>
+                    <br />
+
+                    <div style={{ paddingTop: 10 }} />
+                    <Grid
+                      container
+                      justify="center"
+                      alignItems="center"
+                      style={{ paddingTop: 25, paddingBottom: 25 }}
+                    >
+                      <Button
+                        className={classes.submitButton}
+                        variant="contained"
+                        color="primary"
+                        onClick={this.handleSubmitClick}
+                      >
+                        Submit
+                      </Button>
+
+                      <Button
+                        className={classes.resetButton}
+                        variant="contained"
+                        onClick={this.handleResetClick}
+                      >
+                        Reset
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </form>
+              </Grid>
+            </Grid>
           </Paper>
         )}
       </div>

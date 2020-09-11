@@ -31,6 +31,7 @@ import {
   TransactionGraph,
   Subscription,
   Exchange,
+  Exchange1,
 } from "./../index";
 
 const styles = (theme) => ({
@@ -454,19 +455,19 @@ class Dashboard extends Component {
                       </Typography>
 
                       <div
-                        style={{
-                          width: 350,
-                          paddingTop: 80,
-                          paddingLeft: 180,
-                        }}
+                      // style={{
+                      //   width: 350,
+                      //   paddingTop: 80,
+                      //   paddingLeft: 180,
+                      // }}
                       >
                         <Exchange />
                       </div>
-                      <div
+                      {/* <div
                         style={{ width: 350, paddingLeft: 560, marginTop: -55 }}
                       >
-                        <Exchange />
-                      </div>
+                        <Exchange1 />
+                      </div> */}
                       <Button
                         className={classes.exchangeButton}
                         variant="contained"
