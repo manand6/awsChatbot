@@ -17,29 +17,30 @@ function getModalStyle() {
   return {
     top: `${top}%`,
     left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`
+    transform: `translate(-${top}%, -${left}%)`,
   };
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   paper: {
     position: "absolute",
 
     width: 800,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4
-  }
+    padding: theme.spacing.unit * 4,
+  },
 });
 
 class Subscription extends React.Component {
   constructor(props) {
     super(props);
+    console.log("subs");
     this.state = {
       open: false,
       image1: false,
       image2: false,
-      image: true
+      image: true,
     };
     console.log("succ");
     this.handleClose = this.handleClose.bind(this);
@@ -95,7 +96,7 @@ class Subscription extends React.Component {
 }
 
 Subscription.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 const SubscriptionWrapped = withStyles(styles)(Subscription);

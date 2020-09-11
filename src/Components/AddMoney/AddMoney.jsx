@@ -104,22 +104,22 @@ const styles = (theme) => ({
   },
 });
 
-const availableLoanTypes = [
+const currencies = [
   {
-    value: "auto",
-    label: "Auto Loan    ",
+    value: "USD",
+    label: "$",
   },
   {
-    value: "eud",
-    label: "Education Loan    ",
+    value: "EUR",
+    label: "€",
   },
   {
-    value: "home",
-    label: "Home Loan",
+    value: "BTC",
+    label: "฿",
   },
   {
-    value: "personal",
-    label: "Personal Loan     ",
+    value: "RPE",
+    label: "₹",
   },
 ];
 
@@ -139,7 +139,9 @@ export class ApplyLoanForm extends React.Component {
     console.log("this.state.currency;", this.state.currency);
     let value = event.target.value;
     if (this.state.currencySymbol === "EUR") {
-      value = value * 100;
+      value = value * 10;
+    } else {
+      value = value * 5;
     }
     this.setState({ currency: value });
   };
@@ -190,6 +192,10 @@ export class ApplyLoanForm extends React.Component {
         interestRate: interest,
       });
     }
+  };
+
+  handleCurrencySymbolChange = (event) => {
+    this.setState({ currencySymbol: event.target.value });
   };
 
   handleSubmitClick = () => {
@@ -260,15 +266,15 @@ export class ApplyLoanForm extends React.Component {
                     Enter The Amount
                   </Typography>
                   <Paper style={{ width: 230, marginTop: 20, marginLeft: 85 }}>
-                    <FormControl
+                    {/* <FormControl
                       fullWidth
                       className={classes.margin}
                       variant="outlined"
-                    >
-                      {/* <InputLabel htmlFor="outlined-adornment-amount">
+                    > */}
+                    {/* <InputLabel htmlFor="outlined-adornment-amount">
                         Amount
                       </InputLabel> */}
-                      <OutlinedInput
+                    {/* <OutlinedInput
                         id="outlined-adornment-amount"
                         //value={this.state.currency}
 
@@ -277,8 +283,28 @@ export class ApplyLoanForm extends React.Component {
                           <InputAdornment position="start">€</InputAdornment>
                         }
                         labelWidth={60}
-                      />
-                    </FormControl>
+                      /> */}
+                    {/* </FormControl> */}
+                    <TextField
+                      id="outlined-basic"
+                      variant="outlined"
+                      style={{ width: 150 }}
+                      onChange={(e) => this.handleDigChange(e)}
+                    />
+                    <TextField
+                      style={{ width: 80 }}
+                      id="outlined-select-currency"
+                      select
+                      value={this.state.currencySymbol}
+                      onChange={(e) => this.handleCurrencySymbolChange(e)}
+                      variant="outlined"
+                    >
+                      {currencies.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
                   </Paper>
                   <ArrowDownwardOutlinedIcon
                     fontSize="large"

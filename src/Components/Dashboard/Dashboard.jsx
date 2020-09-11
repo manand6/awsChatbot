@@ -97,7 +97,7 @@ const styles = (theme) => ({
     //height: 20,
     width: 250,
     marginRight: 10,
-    backgroundColor: "#00b9f",
+    backgroundColor: "#f0edf5",
   },
   submitButton: {
     //padding: 20,
@@ -205,10 +205,14 @@ class Dashboard extends Component {
   };
 
   handleExchange = () => {
-    this.props.history.push({
-      pathname: "/login",
-      state: { accountDetails: null },
-    });
+    // this.props.history.push({
+    //   pathname: "/login",
+    //   state: { accountDetails: null },
+    // });
+    this.setState({ subScribeOpen: true, graphOpen: true }, () =>
+      console.log("subs oo", this.state.subScribeOpen)
+    );
+
     console.log("button");
   };
 
@@ -225,9 +229,9 @@ class Dashboard extends Component {
     this.setState({ open: true });
   };
 
-  handleOpen2 = () => {
-    this.setState({ open: true });
-  };
+  // handleOpen2 = () => {
+  //   this.setState({ open: true });
+  // };
 
   handleSubmitClick = () => {
     this.setState({
@@ -408,6 +412,13 @@ class Dashboard extends Component {
                         </span>
                       </Typography>
                     </span>
+                    <Typography
+                      className={classes.font}
+                      variant="h7"
+                      //component="h2"
+                    >
+                      DiG ID: 7845254
+                    </Typography>
                     <br />
 
                     <Typography
@@ -493,9 +504,9 @@ class Dashboard extends Component {
             </div>
           </div>
 
-          {this.state.open ? (
+          {/* {this.state.open ? (
             <TransactionHistory open={this.state.open} />
-          ) : null}
+          ) : null} */}
           {this.state.videoOpen ? (
             <TransactionVideo
               open={this.state.videoOpen}

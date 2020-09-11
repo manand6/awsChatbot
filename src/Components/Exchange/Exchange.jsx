@@ -12,6 +12,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import SearchIcon from "@material-ui/icons/Search";
 import DirectionsIcon from "@material-ui/icons/Directions";
 import { Button } from "@material-ui/core";
+import FormControl from "@material-ui/core/FormControl";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import InputLabel from "@material-ui/core/InputLabel";
 
 const styles = (theme) => ({
   root: {
@@ -100,7 +104,7 @@ export class Exchange extends React.Component {
         <Grid item container xs={6} style={{ paddingLeft: 170 }}>
           <Paper component="form" className={classes.root}>
             <div>
-              <TextField
+              {/* <TextField
                 id="outlined-basic"
                 label="From currency"
                 variant="outlined"
@@ -119,7 +123,23 @@ export class Exchange extends React.Component {
                     {option.label}
                   </MenuItem>
                 ))}
-              </TextField>
+              </TextField> */}
+              <FormControl
+                fullWidth
+                className={classes.margin}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  style={{ width: 330 }}
+                  id="outlined-adornment-amount"
+                  //value={this.state.currency}
+                  onChange={(e) => this.handleCurrencyChange(e)}
+                  startAdornment={
+                    <InputAdornment position="start">DiG</InputAdornment>
+                  }
+                  labelWidth={60}
+                />
+              </FormControl>
             </div>
           </Paper>
         </Grid>

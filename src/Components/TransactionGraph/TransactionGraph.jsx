@@ -2,10 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import First from "../../Common-utilities/Assets/1.png";
-import Two from "../../Common-utilities/Assets/2.png";
-import Three from "../../Common-utilities/Assets/3.png";
-import Four from "../../Common-utilities/Assets/4.png";
+import { Typography, card, CardContent, Grid } from "@material-ui/core";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import Button from "@material-ui/core/Button";
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -18,19 +21,39 @@ function getModalStyle() {
   return {
     top: `${top}%`,
     left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`
+    transform: `translate(-${top}%, -${left}%)`,
   };
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   paper: {
     position: "absolute",
 
     width: 800,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4
-  }
+    padding: theme.spacing.unit * 4,
+  },
+  formControl: {
+    width: 250,
+    marginLeft: 350,
+    marginTop: -40,
+  },
+  submitButton: {
+    //padding: 20,
+    //height: 20,
+    width: 200,
+    marginRight: 20,
+    marginLeft: 160,
+    //backgroundColor: "#4caf50",
+    backgroundColor: "#00b9f5",
+  },
+  resetButton: {
+    //padding: 20,
+    //height: 20,
+    width: 200,
+    marginRight: 10,
+  },
 });
 
 class TransactionGraph extends React.Component {
@@ -40,12 +63,14 @@ class TransactionGraph extends React.Component {
       open: false,
       image1: false,
       image2: false,
-      image: true
+      image: true,
+      bank: "",
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleImage1 = this.handleImage1.bind(this);
     this.handleImage2 = this.handleImage2.bind(this);
     this.handleImage3 = this.handleImage3.bind(this);
+    this.submitBank = this.submitBank.bind(this);
   }
 
   componentWillMount() {
@@ -68,10 +93,38 @@ class TransactionGraph extends React.Component {
   handleImage3() {
     this.setState({ image3: true, image2: false });
   }
+  submitBank() {
+    console.log("hell", this.state.bank);
+    if (this.state.bank === 10) {
+      window.open(
+        "https://ibank.standardchartered.co.in/nfs/login.htm?_ga=2.16355505.607956317.1599838794-1869561468.1599838794",
+        "_blank"
+      );
+    } else if (this.state.bank === 20) {
+      window.open(
+        "https://netbanking.hdfcbank.com/netbanking/?_ga=2.89804379.1325222143.1599839936-1483761288.1547739009",
+        "_blank"
+      );
+    } else if (this.state.bank === 30) {
+      window.open(
+        "https://www.kotak.com/j1001mp/netapp/MainPage.jsp",
+        "_blank"
+      );
+    } else if (this.state.bank === 40) {
+      window.open("https://www.bobibanking.com/", "_blank");
+    } else if (this.state.bank === 50) {
+      window.open("https://pnbibanking.in/", "_blank");
+    }
+  }
 
   handleClose() {
     this.setState({ open: false });
   }
+  handleBankChange = (event) => {
+    console.log("bank", event.target);
+    let value = event.target.value;
+    this.setState({ bank: value });
+  };
 
   render() {
     const { classes } = this.props;
@@ -87,21 +140,66 @@ class TransactionGraph extends React.Component {
           aria-describedby="simple-modal-description"
           open={this.state.open}
           onClose={this.handleClose}
+          style={{ display: "block" }}
         >
           <div style={getModalStyle()} className={classes.paper}>
-            {this.state.image ? (
-              <img width="500px" src={First} onClick={this.handleImage1} />
-            ) : null}
-            <br />
-            {this.state.image1 ? (
-              <img width="500px" src={Two} onClick={this.handleImage2} />
-            ) : null}
-            {this.state.image2 ? (
-              <img width="500px" src={Three} onClick={this.handleImage3} />
-            ) : null}
-            {this.state.image3 ? (
-              <img width="500px" src={Four} onClick={this.handleImage3} />
-            ) : null}
+            <card>
+              <Grid className={classes.pos} item xs={12}>
+                <Typography
+                  variant="h5"
+                  component="h1"
+                  style={{ marginLeft: 250 }}
+                >
+                  Transfer to the Bank
+                </Typography>
+              </Grid>
+              <br />
+              <br />
+              <Typography>
+                {" "}
+                Please select the bank you would like to transfer
+              </Typography>
+              <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel id="demo-simple-select-outlined-label">
+                  Select the bank
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={this.state.bank}
+                  onChange={(e) => this.handleBankChange(e)}
+                  label="Bank"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={10}>Standard Chartered</MenuItem>
+                  <MenuItem value={20}>Hdfc</MenuItem>
+                  <MenuItem value={30}>Kotak Mahindra Bank</MenuItem>
+                  <MenuItem value={40}>Bank of Baroda</MenuItem>
+                  <MenuItem value={50}>Punjab National Bank</MenuItem>
+                </Select>
+              </FormControl>
+              <br />
+              <br />
+              <br />
+              <Button
+                className={classes.submitButton}
+                variant="contained"
+                color="primary"
+                onClick={this.submitBank}
+              >
+                Submit
+              </Button>
+
+              <Button
+                className={classes.resetButton}
+                variant="contained"
+                onClick={this.handleClose}
+              >
+                Reset
+              </Button>
+            </card>
             <TransactionGraphWrapped />
           </div>
         </Modal>
@@ -111,7 +209,7 @@ class TransactionGraph extends React.Component {
 }
 
 TransactionGraph.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 const TransactionGraphWrapped = withStyles(styles)(TransactionGraph);
