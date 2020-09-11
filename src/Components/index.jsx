@@ -7,6 +7,7 @@ import Exchange from "./Exchange/Exchange";
 import TransactionHistory from "./TransactionHistory/TransactionHistory";
 import TransactionVideo from "./TransactionVideo/TransactionVideo";
 import TransactionGraph from "./TransactionGraph/TransactionGraph";
+import ThirdParty from "./ThirdParty/ThirdParty";
 import Subscription from "./Subscription/Subscription";
 
 export {
@@ -16,6 +17,7 @@ export {
   ApplyLoanForm,
   AddMoney,
   Exchange,
+  ThirdParty,
   TransactionHistory,
   TransactionVideo,
   TransactionGraph,

@@ -266,25 +266,6 @@ export class ApplyLoanForm extends React.Component {
                     Enter The Amount
                   </Typography>
                   <Paper style={{ width: 230, marginTop: 20, marginLeft: 85 }}>
-                    {/* <FormControl
-                      fullWidth
-                      className={classes.margin}
-                      variant="outlined"
-                    > */}
-                    {/* <InputLabel htmlFor="outlined-adornment-amount">
-                        Amount
-                      </InputLabel> */}
-                    {/* <OutlinedInput
-                        id="outlined-adornment-amount"
-                        //value={this.state.currency}
-
-                        onChange={(e) => this.handleDigChange(e)}
-                        startAdornment={
-                          <InputAdornment position="start">€</InputAdornment>
-                        }
-                        labelWidth={60}
-                      /> */}
-                    {/* </FormControl> */}
                     <TextField
                       id="outlined-basic"
                       variant="outlined"

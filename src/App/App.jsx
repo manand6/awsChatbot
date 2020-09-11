@@ -4,12 +4,14 @@ import { Login } from "../Components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Dashboard } from "../Components";
 import { AddMoney } from "../Components";
+import { ThirdParty } from "../Components";
 
 class App extends Component {
   render() {
     return (
       <Router>
         <Switch>
+          <Route path="/amazon" component={ThirdParty} />
           <Route path="/login" component={Login} />
           <Route
             path="/dashboard"

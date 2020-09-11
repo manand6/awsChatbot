@@ -13,10 +13,10 @@ import withState from "recompose/withState";
 import Typography from "@material-ui/core/Typography";
 import ApplyLoanForm from "../Components/ApplyLoan/ApplyLoanForm";
 
-const styles = theme => ({
+const styles = (theme) => ({
   popOver: {
-    maxWidth: 1050
-  }
+    maxWidth: 1050,
+  },
 });
 export class Loans extends Component {
   constructor(props) {
@@ -25,11 +25,11 @@ export class Loans extends Component {
 
     this.state = {
       open: false,
-      loanBannerSelected: ""
+      loanBannerSelected: "",
     };
   }
 
-  iconClicked = event => {
+  iconClicked = (event) => {
     console.log(event);
     let value = "";
     switch (event) {
@@ -48,7 +48,7 @@ export class Loans extends Component {
     }
     this.setState({
       loanBannerSelected: value,
-      open: true
+      open: true,
     });
   };
 
@@ -81,30 +81,6 @@ export class Loans extends Component {
             </div>
           </Carousel>
         }
-        <Popover
-          className={classes.popOver}
-          id="render-props-popover"
-          width="1000"
-          open={this.state.open}
-          onClose={() => {
-            this.setState({
-              open: false
-            });
-          }}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "center"
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "center"
-          }}
-        >
-          <ApplyLoanForm
-            loanBanner={this.state.loanBannerSelected}
-            accountData={this.props.accountData}
-          />
-        </Popover>
       </React.Fragment>
     );
   }

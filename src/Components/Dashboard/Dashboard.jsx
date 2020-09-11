@@ -33,6 +33,7 @@ import {
   Exchange,
   Exchange1,
 } from "./../index";
+import { Loans } from "../../Common-utilities/LoanCarousel";
 
 const styles = (theme) => ({
   Dashboard: {
@@ -365,12 +366,9 @@ class Dashboard extends Component {
 
   render() {
     const { classes } = this.props;
-    console.log(
-      "this.props.location.state.digsAdded",
-      this.props.location.state.digsAdded
-    );
+
     let walletAmount = 234.56;
-    if (this.props.location.state.digsAdded) {
+    if (!!this.props.location.state && this.props.location.state.digsAdded) {
       walletAmount = walletAmount + this.props.location.state.digsAdded;
     }
 
@@ -469,23 +467,13 @@ class Dashboard extends Component {
                         component="h2"
                         style={{ textAlignLast: "center", marginTop: 70 }}
                       >
-                        Exchange to any currency in the world
+                        Buy Bitcoins/Exchange to any currency in the world
                       </Typography>
 
-                      <div
-                      // style={{
-                      //   width: 350,
-                      //   paddingTop: 80,
-                      //   paddingLeft: 180,
-                      // }}
-                      >
+                      <div>
                         <Exchange />
                       </div>
-                      {/* <div
-                        style={{ width: 350, paddingLeft: 560, marginTop: -55 }}
-                      >
-                        <Exchange1 />
-                      </div> */}
+
                       <Button
                         className={classes.exchangeButton}
                         variant="contained"
@@ -501,6 +489,14 @@ class Dashboard extends Component {
               {/* <source srcSet={Buy} type="image/webp" /> */}
 
               {/* <video src={Video} width="800" height="400" autoplay="true" /> */}
+              <br />
+              <div>
+                <Grid container spacing={8}>
+                  <Grid>
+                    <Loans />
+                  </Grid>
+                </Grid>
+              </div>
             </div>
           </div>
 

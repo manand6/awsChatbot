@@ -106,11 +106,23 @@ export class portalContent extends Component {
       .then((responseobj) => {
         if (!!responseobj && responseobj.validUser) {
           this.setState({ invalidCredentials: false });
-          this.props.history.push({
-            pathname: "/dashboard",
-            state: { accountDetails: responseobj },
-          });
+          console.log("this.props", this.props);
+          if (
+            !!this.props.location.state &&
+            this.props.location.state.gateway
+          ) {
+            this.props.history.push({
+              pathname: "/AddMoney",
+              state: { accountDetails: null },
+            });
+          } else {
+            this.props.history.push({
+              pathname: "/dashboard",
+              state: { accountDetails: responseobj },
+            });
+          }
         } else if (!!responseobj && !responseobj.validUser) {
+          console.log("hellow");
           this.setState({ invalidCredentials: true });
         }
       });
