@@ -19,6 +19,11 @@ import paypal from "../../Components/AddMoney/Assets/paypal.JPG";
 import other from "../../Components/AddMoney/Assets/other.JPG";
 import othermethod from "../../Components/AddMoney/Assets/othermethod.PNG";
 import river from "../../Components/Dashboard/Assets/river.png";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputLabel from "@material-ui/core/InputLabel";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import FormControl from "@material-ui/core/FormControl";
+import ArrowDownwardOutlinedIcon from "@material-ui/icons/ArrowDownwardOutlined";
 import {
   ExpansionPanel,
   ExpansionPanelDetails,
@@ -44,6 +49,14 @@ const styles = (theme) => ({
   paymentImg: {
     width: 450,
   },
+  bgcolor: {
+    backgroundColor: "#00b9f5",
+    width: 400,
+    height: 350,
+    marginLeft: 50,
+    marginTop: 55,
+    borderRadius: 15,
+  },
   addMoneycard: {
     width: 250,
     height: 170,
@@ -56,12 +69,18 @@ const styles = (theme) => ({
     fontFamily: "system-ui",
     paddingLeft: 100,
   },
+  fontText: {
+    color: "#fff",
+    textAlignLast: "center",
+    marginTop: 40,
+  },
   submitButton: {
     //padding: 20,
     //height: 20,
     width: 200,
     marginRight: 10,
-    backgroundColor: "#4caf50",
+    //backgroundColor: "#4caf50",
+    backgroundColor: "#00b9f5",
   },
   success: {
     width: 700,
@@ -80,7 +99,7 @@ const styles = (theme) => ({
     top: 30,
     left: 200,
     //height: 20,
-    width: 200,
+    width: 300,
     marginRight: 10,
   },
 });
@@ -109,26 +128,21 @@ export class ApplyLoanForm extends React.Component {
     super(props);
     console.log(this.props);
     this.state = {
-      name: "anandd",
-      amount: "",
-      multiline: "Controlled",
-      loanSelected: this.props.loanBanner,
+      currencySymbol: "EUR",
+      currency: "",
       responseReceived: false,
-      interestRate: "",
-      debitAccount: "545452121",
-      accounts: [
-        {
-          value: "545452121",
-          label: "545452121",
-        },
-        {
-          value: "545452121",
-          label: "545452121",
-        },
-      ],
     };
     global.fetch = fetchSuccsess;
   }
+
+  handleDigChange = (event) => {
+    console.log("this.state.currency;", this.state.currency);
+    let value = event.target.value;
+    if (this.state.currencySymbol === "EUR") {
+      value = value * 100;
+    }
+    this.setState({ currency: value });
+  };
 
   componentDidMount() {
     let interest;
@@ -200,23 +214,9 @@ export class ApplyLoanForm extends React.Component {
   };
 
   handleResetClick = () => {
-    this.setState({
-      name: "anandd",
-      amount: "",
-      multiline: "Controlled",
-      loanSelected: "auto",
-      interestRate: 9.4,
-      debitAccount: "545452121",
-      accounts: [
-        {
-          value: "545452121",
-          label: "545452121",
-        },
-        {
-          value: "545452121",
-          label: "545452121",
-        },
-      ],
+    this.props.history.push({
+      pathname: "/dashboard",
+      state: { digsAdded: this.state.currency },
     });
   };
 
@@ -241,7 +241,7 @@ export class ApplyLoanForm extends React.Component {
                   variant="contained"
                   onClick={this.handleResetClick}
                 >
-                  Redirect
+                  Redirect to the main page
                 </Button>
               </CardContent>
             </card>
@@ -251,7 +251,60 @@ export class ApplyLoanForm extends React.Component {
           <Paper component="form" className={classes.root}>
             <Grid container spacing={12}>
               <Grid item container xs={4}>
-                <card className={classes.addMoneycard}>hello</card>
+                <card className={classes.bgcolor}>
+                  <Typography
+                    className={classes.fontText}
+                    variant="h6"
+                    component="h2"
+                  >
+                    Enter The Amount
+                  </Typography>
+                  <Paper style={{ width: 230, marginTop: 20, marginLeft: 85 }}>
+                    <FormControl
+                      fullWidth
+                      className={classes.margin}
+                      variant="outlined"
+                    >
+                      {/* <InputLabel htmlFor="outlined-adornment-amount">
+                        Amount
+                      </InputLabel> */}
+                      <OutlinedInput
+                        id="outlined-adornment-amount"
+                        //value={this.state.currency}
+
+                        onChange={(e) => this.handleDigChange(e)}
+                        startAdornment={
+                          <InputAdornment position="start">€</InputAdornment>
+                        }
+                        labelWidth={60}
+                      />
+                    </FormControl>
+                  </Paper>
+                  <ArrowDownwardOutlinedIcon
+                    fontSize="large"
+                    style={{ color: "#fff", marginLeft: 175, marginTop: 25 }}
+                  />
+                  <Paper style={{ width: 230, marginTop: 20, marginLeft: 85 }}>
+                    <FormControl
+                      fullWidth
+                      className={classes.margin}
+                      variant="outlined"
+                    >
+                      {/* <InputLabel htmlFor="outlined-adornment-amount">
+                        Amount
+                      </InputLabel> */}
+                      <OutlinedInput
+                        id="outlined-adornment-amount1"
+                        value={this.state.currency}
+                        //onChange={handleChange("amount")}
+                        startAdornment={
+                          <InputAdornment position="start">DiG</InputAdornment>
+                        }
+                        labelWidth={60}
+                      />
+                    </FormControl>
+                  </Paper>
+                </card>
               </Grid>
               <Grid item container xs={8}>
                 <form

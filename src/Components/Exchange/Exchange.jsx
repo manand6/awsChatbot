@@ -76,8 +76,11 @@ export class Exchange extends React.Component {
   };
 
   handleCurrencySymbolChange = (event) => {
-    console.log("this.state.currencySymbol;", this.state.currencySymbol);
     this.setState({ currencySymbol: event.target.value });
+  };
+
+  handleCurrencySymbolChange1 = (event) => {
+    this.setState({ currencySymbol1: event.target.value });
   };
 
   handleExchange = () => {
@@ -99,7 +102,7 @@ export class Exchange extends React.Component {
             <div>
               <TextField
                 id="outlined-basic"
-                label="Your currency"
+                label="From currency"
                 variant="outlined"
                 onChange={(e) => this.handleCurrencyChange(e)}
               />
@@ -125,7 +128,7 @@ export class Exchange extends React.Component {
             <div>
               <TextField
                 id="outlined-basic"
-                label="Your currency"
+                label="To currency"
                 variant="outlined"
                 value={this.state.currency}
               />
@@ -134,7 +137,7 @@ export class Exchange extends React.Component {
                 id="outlined-select-currency"
                 select
                 value={this.state.currencySymbol1}
-                onChange={(e) => this.handleChange(e)}
+                onChange={(e) => this.handleCurrencySymbolChange1(e)}
                 variant="outlined"
               >
                 {currencies.map((option) => (

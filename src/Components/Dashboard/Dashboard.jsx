@@ -97,7 +97,7 @@ const styles = (theme) => ({
     //height: 20,
     width: 250,
     marginRight: 10,
-    backgroundColor: "yellow",
+    backgroundColor: "#00b9f",
   },
   submitButton: {
     //padding: 20,
@@ -111,7 +111,8 @@ const styles = (theme) => ({
     //height: 20,
     width: 250,
     marginRight: 10,
-    backgroundColor: "yellow",
+    //backgroundColor: "#f0edf5",
+    backgroundColor: "#00b9f",
   },
 });
 
@@ -360,13 +361,19 @@ class Dashboard extends Component {
 
   render() {
     const { classes } = this.props;
+    console.log(
+      "this.props.location.state.digsAdded",
+      this.props.location.state.digsAdded
+    );
+    let walletAmount = 234.56;
+    if (this.props.location.state.digsAdded) {
+      walletAmount = walletAmount + this.props.location.state.digsAdded;
+    }
+
     return (
       <React.Fragment>
         <div>
-          <AppBar
-            userName={this.props.location.state.accountDetails.userName}
-            {...this.props}
-          />
+          <AppBar userName="Elon Musk" {...this.props} />
           <div className={classes.Dashboard}>
             <Grid container spacing={8}>
               <Grid className={classes.pos} item xs={12}>
@@ -409,7 +416,7 @@ class Dashboard extends Component {
                       component="h1"
                       style={{ textAlignLast: "center" }}
                     >
-                      45000 DiGs
+                      {walletAmount} DiGs
                     </Typography>
                   </CardContent>
                 </Card>
@@ -471,7 +478,6 @@ class Dashboard extends Component {
                       <Button
                         className={classes.exchangeButton}
                         variant="contained"
-                        color="white"
                         style={{ right: "-420px", top: "40px" }}
                         onClick={this.handleExchange}
                       >
