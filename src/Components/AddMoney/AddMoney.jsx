@@ -1,10 +1,11 @@
 import React from "react";
+
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import { Typography, card, CardContent } from "@material-ui/core";
+import { Typography, card, CardContent, Checkbox } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import "./AddMoney.css";
 import Button from "@material-ui/core/Button";
@@ -72,7 +73,7 @@ const styles = (theme) => ({
   fontText: {
     color: "#fff",
     textAlignLast: "center",
-    marginTop: 40,
+    marginTop: 20,
   },
   submitButton: {
     //padding: 20,
@@ -265,7 +266,7 @@ export class ApplyLoanForm extends React.Component {
                   >
                     Enter The Amount
                   </Typography>
-                  <Paper style={{ width: 230, marginTop: 20, marginLeft: 85 }}>
+                  <Paper style={{ width: 230, marginTop: 5, marginLeft: 85 }}>
                     <TextField
                       id="outlined-basic"
                       variant="outlined"
@@ -289,9 +290,9 @@ export class ApplyLoanForm extends React.Component {
                   </Paper>
                   <ArrowDownwardOutlinedIcon
                     fontSize="large"
-                    style={{ color: "#fff", marginLeft: 175, marginTop: 25 }}
+                    style={{ color: "#fff", marginLeft: 175, marginTop: 15 }}
                   />
-                  <Paper style={{ width: 230, marginTop: 20, marginLeft: 85 }}>
+                  <Paper style={{ width: 230, marginLeft: 85 }}>
                     <FormControl
                       fullWidth
                       className={classes.margin}
@@ -311,6 +312,31 @@ export class ApplyLoanForm extends React.Component {
                       />
                     </FormControl>
                   </Paper>
+                  <Paper style={{ width: 230, marginLeft: 85, marginTop: 15 }}>
+                    <TextField
+                      id="date"
+                      label="Expire Date"
+                      type="date"
+                      defaultValue="2020-12-09"
+                      className={classes.textField}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  </Paper>
+                  <Checkbox
+                    //checked={checked}
+                    //onChange={handleChange}
+                    inputProps={{ "aria-label": "primary checkbox" }}
+                  />
+                  <Typography
+                    style={{ marginTop: -36, marginLeft: -50 }}
+                    className={classes.font}
+                    //variant="h1"
+                    component="h2"
+                  >
+                    The DiGs will be expired after the expire date you selected
+                  </Typography>
                 </card>
               </Grid>
               <Grid item container xs={8}>

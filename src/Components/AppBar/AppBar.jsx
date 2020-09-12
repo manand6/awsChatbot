@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import Logo from "../../Components/Login/Assets/bg.PNG";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -77,6 +78,7 @@ const styles = (theme) => ({
   },
   bg: {
     backgroundColor: "#00b9f5",
+    //backgroundImage: "url(" + Logo + ")",
   },
 });
 
