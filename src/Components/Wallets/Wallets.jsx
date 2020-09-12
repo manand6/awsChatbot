@@ -1,26 +1,28 @@
 import React, { Component } from "react";
 import { Carousel } from "react-responsive-carousel";
+import PropTypes from "prop-types";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import home from "./Assets/home-loan.jpg";
-import education from "./Assets/education-loan.jpg";
-import personal from "./Assets/personal-loan.jpg";
-import auto from "./Assets/auto-loan.jpg";
+import amazon from "./Assets/amazon.jpg";
+import walmart from "./Assets/Walmart.jpg";
+import flipkart from "./Assets/flipkart.jpg";
+import alibaba from "./Assets/alibaba.jpg";
 import "./LoanCarousel.css";
 import { withStyles } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import toRenderProps from "recompose/toRenderProps";
 import withState from "recompose/withState";
 import Typography from "@material-ui/core/Typography";
-import ApplyLoanForm from "../Components/ApplyLoan/ApplyLoanForm";
+import ApplyLoanForm from "../ApplyLoan/ApplyLoanForm";
 
 const styles = (theme) => ({
   popOver: {
     maxWidth: 1050,
   },
 });
-export class Loans extends Component {
+export class Wallets extends React.Component {
   constructor(props) {
     super(props);
+    console.log("props", this);
     this.iconClicked = this.iconClicked.bind(this);
 
     this.state = {
@@ -31,24 +33,9 @@ export class Loans extends Component {
 
   iconClicked = (event) => {
     console.log(event);
-    let value = "";
-    switch (event) {
-      case 0:
-        value = "auto";
-        break;
-      case 1:
-        value = "eud";
-        break;
-      case 2:
-        value = "home";
-        break;
-      case 3:
-        value = "personal";
-        break;
-    }
-    this.setState({
-      loanBannerSelected: value,
-      open: true,
+    this.props.history.push({
+      pathname: "/amazon",
+      state: { accountDetails: null },
     });
   };
 
@@ -68,16 +55,16 @@ export class Loans extends Component {
             dynamicHeight={true}
           >
             <div>
-              <img src={auto} alt=" " />
+              <img src={amazon} alt=" " />
             </div>
             <div>
-              <img src={education} alt=" " />
+              <img src={walmart} alt=" " />
             </div>
             <div>
-              <img src={home} alt=" " />
+              <img src={flipkart} alt=" " />
             </div>
             <div>
-              <img src={personal} alt=" " />
+              <img src={alibaba} alt=" " />
             </div>
           </Carousel>
         }
@@ -86,4 +73,8 @@ export class Loans extends Component {
   }
 }
 
-export default withStyles(styles)(Loans);
+Wallets.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Wallets);

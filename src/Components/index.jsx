@@ -9,6 +9,7 @@ import TransactionVideo from "./TransactionVideo/TransactionVideo";
 import TransactionGraph from "./TransactionGraph/TransactionGraph";
 import ThirdParty from "./ThirdParty/ThirdParty";
 import Subscription from "./Subscription/Subscription";
+import Wallets from "./Wallets/Wallets";
 
 export {
   AppBar,
@@ -18,6 +19,7 @@ export {
   AddMoney,
   Exchange,
   ThirdParty,
+  Wallets,
   TransactionHistory,
   TransactionVideo,
   TransactionGraph,

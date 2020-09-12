@@ -11,13 +11,13 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route path="/amazon" component={ThirdParty} />
           <Route path="/login" component={Login} />
           <Route
             path="/dashboard"
             render={(props) => <Dashboard {...props} />}
           />
           <Route path="/addMoney" render={(props) => <AddMoney {...props} />} />
+          <Route path="/amazon" render={(props) => <ThirdParty {...props} />} />
         </Switch>
       </Router>
     );

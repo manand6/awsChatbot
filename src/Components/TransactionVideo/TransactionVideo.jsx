@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import { Player } from "video-react";
 import Logo from "./video/images.mp4";
-import NewLoan from "../../Common-utilities/LoanCarousel";
+//import NewLoan from "../../Common-utilities/LoanCarousel";
 import { Carousel } from "react-responsive-carousel";
 import home from "../../Common-utilities/Assets/home-loan.jpg";
 import education from "../../Common-utilities/Assets/education-loan.jpg";
@@ -23,26 +23,26 @@ function getModalStyle() {
   return {
     top: `${top}%`,
     left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`
+    transform: `translate(-${top}%, -${left}%)`,
   };
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   paper: {
     position: "absolute",
 
     width: 800,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4
-  }
+    padding: theme.spacing.unit * 4,
+  },
 });
 
 class TransactionVideo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
     };
     // this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -115,7 +115,7 @@ class TransactionVideo extends React.Component {
 }
 
 TransactionVideo.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 const TransactionVideoWrapped = withStyles(styles)(TransactionVideo);

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import {
+  Avatar,
   TextField,
   Button,
   Grid,
@@ -17,13 +18,19 @@ import "./Dashboard.css";
 import ExpansionPanels from "../../Common-utilities/ExpansionDashboard";
 import Logo from "../../Components/Login/Assets/bg.PNG";
 import purple from "../../Components/Dashboard/Assets/purple.png";
+import coin from "../../Components/Dashboard/Assets/coins.png";
 import river from "../../Components/Dashboard/Assets/river.png";
 import green from "../../Components/Dashboard/Assets/green.png";
+import usa from "../../Components/Dashboard/Assets/US.png";
+import india from "../../Components/Dashboard/Assets/india.png";
+import euro from "../../Components/Dashboard/Assets/euro.png";
+import japan from "../../Components/Dashboard/Assets/japan.png";
 import Video from "../../Components/Dashboard/Assets/multi_asset_2.mp4";
 import Buy from "../../Components/Login/Assets/Buy_Sell.webp";
-import Newloan from "../../Common-utilities/LoanCarousel";
 import Divider from "@material-ui/core/Divider";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
+import MenuItem from "@material-ui/core/MenuItem";
+import ArrowForwardOutlinedIcon from "@material-ui/icons/ArrowForwardOutlined";
 import {
   TransactionHistory,
   TransactionVideo,
@@ -32,8 +39,8 @@ import {
   Subscription,
   Exchange,
   Exchange1,
+  Wallets,
 } from "./../index";
-import { Loans } from "../../Common-utilities/LoanCarousel";
 
 const styles = (theme) => ({
   Dashboard: {
@@ -53,6 +60,16 @@ const styles = (theme) => ({
     //backgroundImage: 'url('../../Components/Login/Assets/login.png')',
     backgroundImage: "url(" + Logo + ")",
   },
+
+  card1: {
+    width: 331,
+    height: 170,
+    backgroundSize: "cover",
+    marginLeft: -90,
+    //backgroundImage: 'url('../../Components/Login/Assets/login.png')',
+    backgroundImage: "url(" + Logo + ")",
+    //backgroundColor: "#00b9f5",
+  },
   exchange: {
     width: 1160,
     height: 350,
@@ -61,8 +78,9 @@ const styles = (theme) => ({
     backgroundImage: "url(" + river + ")",
   },
   wallet: {
-    width: 700,
+    width: 400,
     height: 170,
+    marginLeft: -45,
     backgroundSize: "cover",
     //backgroundImage: 'url('../../Components/Login/Assets/login.png')',
     backgroundImage: "url(" + Logo + ")",
@@ -111,11 +129,31 @@ const styles = (theme) => ({
     //padding: 20,
     //height: 20,
     width: 250,
-    marginRight: 10,
+    marginLeft: -145,
+
     //backgroundColor: "#f0edf5",
     backgroundColor: "#00b9f",
   },
 });
+
+const currencies = [
+  {
+    value: "USD",
+    label: "USD",
+  },
+  {
+    value: "EUR",
+    label: "EUR",
+  },
+  {
+    value: "JPY",
+    label: "JPY",
+  },
+  {
+    value: "RPE",
+    label: "RPE",
+  },
+];
 
 const botstyles = {
   bubbleStyles: {
@@ -175,6 +213,8 @@ class Dashboard extends Component {
       videoOpen: false,
       graphOpen: false,
       subScribeOpen: false,
+      currencySymbol: "USD",
+      currency: "10",
       messages: [
         new Message({
           id: 1,
@@ -200,6 +240,20 @@ class Dashboard extends Component {
       input,
     });
   }
+
+  handleCurrencySymbolChange = (event) => {
+    let value = event.target.value;
+    if (value === "EUR") {
+      this.setState({ currency: "11.8" });
+    } else if (value === "USD") {
+      this.setState({ currency: "10" });
+    } else if (value === "RPE") {
+      this.setState({ currency: "0.14" });
+    } else if (value === "JPY") {
+      this.setState({ currency: "0.094" });
+    }
+    this.setState({ currencySymbol: event.target.value });
+  };
 
   handleClose = () => {
     this.setState({ open: false });
@@ -229,6 +283,28 @@ class Dashboard extends Component {
   handleOpen1 = () => {
     this.setState({ open: true });
   };
+  handleDigChange = (event) => {
+    console.log("this.state.currency;", this.state.currency);
+    let value;
+    if (!!event.target.value) {
+      console.log("value", event);
+      value = event.target.value;
+    } else {
+      console.log("value", event);
+      value = event.target.defaultValue;
+    }
+
+    if (this.state.currencySymbol === "EUR") {
+      value = value * 11.8;
+    } else if (this.state.currencySymbol === "RPE") {
+      value = value * 0.14;
+    } else if (this.state.currencySymbol === "JPN") {
+      value = value * 0.094;
+    } else if (this.state.currencySymbol === "USD") {
+      value = value * 10;
+    }
+    this.setState({ currency: value });
+  };
 
   // handleOpen2 = () => {
   //   this.setState({ open: true });
@@ -251,18 +327,6 @@ class Dashboard extends Component {
       state: { accountDetails: null },
     });
     console.log("button");
-  };
-
-  _handleKeyPress = (e) => {
-    this.setState({
-      open: false,
-      videoOpen: false,
-      graphOpen: false,
-      subscribeOpen: false,
-    });
-    if (e.key === "Enter") {
-      this.submitMessage();
-    }
   };
 
   async submitMessage() {
@@ -366,7 +430,7 @@ class Dashboard extends Component {
 
   render() {
     const { classes } = this.props;
-
+    console.log("propss", this.props);
     let walletAmount = 234.56;
     if (!!this.props.location.state && this.props.location.state.digsAdded) {
       walletAmount = walletAmount + this.props.location.state.digsAdded;
@@ -454,7 +518,125 @@ class Dashboard extends Component {
                   </CardContent>
                 </Card>
               </Grid>
+              <Grid item container xs={4}>
+                <Card
+                  className={classes.card1}
+                  onClick={this.handleOpen1.bind(this)}
+                >
+                  <CardContent>
+                    <span>
+                      <Avatar
+                        alt="Remy Sharp"
+                        src={
+                          this.state.currencySymbol === "USD"
+                            ? usa
+                            : this.state.currencySymbol === "RPE"
+                            ? india
+                            : this.state.currencySymbol === "EUR"
+                            ? euro
+                            : this.state.currencySymbol === "JPN"
+                            ? japan
+                            : null
+                        }
+                      />
+                      {/* <span
+                          style={{
+                            zIndex: "-1",
+                            float: "right",
+                            paddingRight: "134px",
+                          }}
+                        > */}
+                      <paper
+                        style={{
+                          width: 230,
+                          marginTop: 20,
+                          marginLeft: 85,
+                        }}
+                      >
+                        <TextField
+                          style={{
+                            width: 80,
+                            backgroundColor: "#fff",
+                            borderRadius: 10,
+                            marginTop: -45,
+                            marginLeft: -35,
+                            //height: 45,
+                            //borderColor: "#fff",
+                          }}
+                          id="outlined-select-currency1"
+                          select
+                          value={this.state.currencySymbol}
+                          onChange={(e) => this.handleCurrencySymbolChange(e)}
+                          variant="outlined"
+                        >
+                          {currencies.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      </paper>
+                      {/* <ArrowForwardOutlinedIcon
+                          fontSize="large"
+                          style={{
+                            color: "#fff",
+                          }}
+                        /> */}
+                    </span>
+                    <span>
+                      <paper
+                        style={{
+                          width: 230,
+                          marginTop: 20,
+                          marginLeft: 50,
+                        }}
+                      >
+                        <TextField
+                          style={{
+                            width: 80,
+                            backgroundColor: "#fff",
+                            borderRadius: 10,
+                            marginTop: -45,
+                            marginLeft: -30,
+                            //height: 45,
+                            //borderColor: "#fff",
+                          }}
+                          id="outlined-select-currency"
+                          defaultValue="1"
+                          //value={this.state.currencyconvert}
+                          onChange={(e) => this.handleDigChange(e)}
+                          variant="outlined"
+                        />
+                      </paper>
+                      <div style={{ marginTop: 15 }}>
+                        <Avatar
+                          alt="Remy Sharp"
+                          src={coin}
+                          //style={{ bottom: 50 }}
+                        />
+                        <TextField
+                          style={{
+                            width: 179,
+                            backgroundColor: "#fff",
+                            borderRadius: 10,
+                            marginTop: -45,
+                            marginLeft: 50,
+                            //height: 45,
+                            //borderColor: "#fff",
+                          }}
+                          id="outlined-select-currency"
+                          value={this.state.currency}
+                          //onChange={(e) => this.handleCurrencySymbolChange(e)}
+                          variant="outlined"
+                        />
+                      </div>
+                    </span>
+                    <br />
+                  </CardContent>
+                </Card>
+              </Grid>
             </Grid>
+
             <div>
               <br />
               <div>
@@ -467,7 +649,7 @@ class Dashboard extends Component {
                         component="h2"
                         style={{ textAlignLast: "center", marginTop: 70 }}
                       >
-                        Buy Bitcoins/Exchange to any currency in the world
+                        Deposit DiGs into your Bank
                       </Typography>
 
                       <div>
@@ -480,7 +662,7 @@ class Dashboard extends Component {
                         style={{ right: "-420px", top: "40px" }}
                         onClick={this.handleExchange}
                       >
-                        Exchange your Currency
+                        Deposit DiGs
                       </Button>
                     </Card>
                   </Grid>
@@ -493,7 +675,7 @@ class Dashboard extends Component {
               <div>
                 <Grid container spacing={8}>
                   <Grid>
-                    <Loans />
+                    <Wallets props={this.props} />
                   </Grid>
                 </Grid>
               </div>
